@@ -39,6 +39,7 @@ def webreq(schema,method,rhost,rport,payload,param=None,cook=None):
 
 def socksend(rhost,rport,payload, steps=0):
 	rport=int(rport)
+	steps=int(steps)
 	with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 		s.connect((rhost,rport))
 		i=0
@@ -48,6 +49,7 @@ def socksend(rhost,rport,payload, steps=0):
 
 def socklisten(lport,payload, steps=0):
 	lport=int(lport)
+	steps=int(steps)
 	with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 		s.bind(("",lport))
 		s.listen(1)
@@ -91,10 +93,11 @@ if __name__ == "__main__":
 		socksendparser.add_argument("-s","--steps")
 
 		#create subparser for socklisten attack
-		socksendparser=subparse.add_parser("socklisten")
-		socksendparser.add_argument("-lp","--lport",required=True)
-		socksendparser.add_argument("-P","--payload",required=True)
-		socksendparser.add_argument("-c","--command")
+		socklistenparser=subparse.add_parser("socklisten")
+		socklistenparser.add_argument("-lp","--lport",required=True)
+		socklistenparser.add_argument("-P","--payload",required=True)
+		socklistenparser.add_argument("-c","--command")
+		socklistenparser.add_argument("-s","--steps")
 		
 		#return parsed arguments
 		args = parser.parse_args()
@@ -107,6 +110,6 @@ if __name__ == "__main__":
 	if args.attack == "webreq":
 		webreq(args.schema,args.method,args.rhost,args.rport,args.payload,args.parameter,args.cookie)
 	elif args.attack == "socksend":
-		socksend(args.rhost,args.rport,args.payload)
+		socksend(args.rhost,args.rport,args.payload,args.steps)
 	elif args.attack == "socklisten":
-		socklisten(args.lport,args.payload)
+		socklisten(args.lport,args.payload,args.steps)
