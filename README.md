@@ -43,6 +43,7 @@ options:
 
 ## useage (library)
 ```
+from balsamic import balsamic
 balsamic.utility.command="command"
 balsamic.webreq("schema","method","rhost","rport","payload","parameter","cookie")
 balsamic.socksend("ip",port,"payload",steps)
