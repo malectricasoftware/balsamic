@@ -28,6 +28,7 @@ def updatecmd(newcmd):
 def webreq(schema,method,rhost,rport,payload,param=None,cook=None):
 	methods=["get","post","put","patch"]
 	payload=utility.b64pickle(payload)
+	payload=payload.decode("utf-8")
 	if method in methods:
 		r=getattr(requests,method)
 	if param:
