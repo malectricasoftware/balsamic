@@ -54,8 +54,10 @@ def socksend(rhost,rport,payload, enc, steps=0):
 		i=0
 		while i < steps:
 			s.sendall("arb".encode("utf-8"))
+			s.recv(1024)
+			i+=1
 		s.sendall(payload)
-		s.recv(1024)
+		s.close()
 def socklisten(lport,payload, enc, steps=0):
 	lport=int(lport)
 	steps=int(steps)
@@ -71,7 +73,8 @@ def socklisten(lport,payload, enc, steps=0):
 		with conn:
 			while i < steps:
 				conn.sendall("arb".encode("utf-8"))
+				conn.recv(1024)
 				i+=1
 			conn.sendall(payload)
-			conn.recv(1024)
+			conn.close()
 
