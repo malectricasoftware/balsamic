@@ -29,6 +29,7 @@ if __name__ == "__main__":
 		socksendparser.add_argument("-P","--payload",required=True)
 		socksendparser.add_argument("-c","--command")
 		socksendparser.add_argument("-s","--steps",default="0")
+		socksendparser.add_argument("-e","--encode",action="store_true")
 
 		#create subparser for socklisten attack
 		socklistenparser=subparse.add_parser("socklisten")
@@ -36,6 +37,7 @@ if __name__ == "__main__":
 		socklistenparser.add_argument("-P","--payload",required=True)
 		socklistenparser.add_argument("-c","--command")
 		socklistenparser.add_argument("-s","--steps",default="0")
+		socklistenparser.add_argument("-e","--encode",action="store_true")
 		
 		#return parsed arguments
 		args = parser.parse_args()
@@ -48,6 +50,6 @@ if __name__ == "__main__":
 	if args.attack == "webreq":
 		balsamic.webreq(args.schema,args.method,args.rhost,args.rport,args.payload,args.parameter,args.cookie)
 	elif args.attack == "socksend":
-		balsamic.socksend(args.rhost,args.rport,args.payload,args.steps)
+		balsamic.socksend(args.rhost,args.rport,args.payload,args.encode,args.steps)
 	elif args.attack == "socklisten":
-		balsamic.socklisten(args.lport,args.payload,args.steps)
+		balsamic.socklisten(args.lport,args.payload,args.encode,args.steps)
