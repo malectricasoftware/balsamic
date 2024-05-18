@@ -29,6 +29,7 @@ options:
   -P PAYLOAD, --payload PAYLOAD
   -c COMMAND, --command COMMAND
   -s STEPS, --steps STEPS
+  -e ENCODE, --encode Encode
 ```
 socklisten mode
 ```
@@ -39,6 +40,8 @@ options:
   -lp LPORT, --lport LPORT
   -P PAYLOAD, --payload PAYLOAD
   -c COMMAND, --command COMMAND
+  -s STEPS, --steps STEPS
+  -e ENCODE, --encode Encode
 ```
 
 ## useage (library)
@@ -46,6 +49,6 @@ options:
 from balsamic import balsamic
 balsamic.utility.command="command"
 balsamic.webreq("schema","method","rhost","rport","payload","parameter","cookie")
-balsamic.socksend("ip",port,"payload",steps)
-balsamic.socklisten(port,"payload",steps)
+balsamic.socksend("ip",port,"payload",encode,steps)
+balsamic.socklisten(port,"payload",encode,steps)
 ```
