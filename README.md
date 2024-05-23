@@ -1,6 +1,7 @@
 # Balsamic  
 balsamic is a library for sending malicious pickles to a vunlerable application, via web requests, or a malicious server or client(currently ipv4 only).  
 we will add more payloads but for now we just execute shell commands. via the oscmd payload.  
+![image](https://github.com/malectricasoftware/balsamic/assets/107813117/c9e8138c-9f8f-4d68-b71c-331cf7a42343)
 
 ## useage (standalone)  
 web request mode  
