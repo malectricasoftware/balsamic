@@ -5,18 +5,19 @@ we will add more payloads but for now we just execute shell commands. via the os
 ## useage (standalone)  
 web request mode  
 ```
-usage: balsamic.py webreq [-h] -s {http,https} [-m METHOD] -rh RHOST -rp RPORT [-p PARAMETER] [-co COOKIE] -P PAYLOAD [-c COMMAND]
+usage: balsamic.py webreq [-h] [-m METHOD] -u URL [-p PARAMETER] [-co COOKIE] -P PAYLOAD
+                          [-c COMMAND] [-H HEADERS]
 
 options:
   -h, --help            show this help message and exit
-  -s {http,https}, --schema {http,https}
   -m METHOD, --method METHOD
-  -rh RHOST, --rhost RHOST
-  -rp RPORT, --rport RPORT
+  -u URL, --url URL
   -p PARAMETER, --parameter PARAMETER
   -co COOKIE, --cookie COOKIE
   -P PAYLOAD, --payload PAYLOAD
   -c COMMAND, --command COMMAND
+  -H HEADERS, --headers HEADERS
+
 ```
 socksend mode  
 ```
@@ -48,7 +49,7 @@ options:
 ```
 from balsamic import balsamic
 balsamic.utility.command="command"
-balsamic.webreq("schema","method","rhost","rport","payload","parameter","cookie")
-balsamic.socksend("ip",port,"payload",encode,steps)
-balsamic.socklisten(port,"payload",encode,steps)
+balsamic.webreq("method", "url", "payload", "param", "cookie", custom_headers)
+balsamic.socksend("rhost", rport, "payload", enc, steps)
+balsamic.socklisten(lport, "payload", enc, steps)
 ```
