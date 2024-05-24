@@ -31,11 +31,11 @@ class Payloads:
 def updatecmd(new_cmd):
     Utility.command = new_cmd
 
-def webreq(method, url, payload, param=None, cook=None, custom_headers=None):
+def webreq(method, url, payload, param=None, cook=None, custom_header=None):
     methods = ["get", "post", "put", "patch"]
-    headers = custom_headers or {}
     payload = Utility.urlpickle(payload)
     payload = payload.decode("utf-8")
+    headers = {custom_header:payload} or {}
     if method in methods:
         request_method = getattr(requests, method)
     if param:
