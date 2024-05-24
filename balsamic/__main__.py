@@ -46,12 +46,8 @@ if __name__ == "__main__":
         balsamic.updatecmd(args.command)
 
     # Extract custom headers from the arguments
-    try:
-        custom_headers = dict([header.split(":") for header in args.headers.split(";")]) if args.headers else None
-    except AttributeError:
-        pass
     if args.attack == "webreq":
-        balsamic.webreq(args.method, args.url, args.payload, args.parameter, args.cookie, custom_headers=custom_headers)
+        balsamic.webreq(args.method, args.url, args.payload, args.parameter, args.cookie, custom_header=args.headers)
     elif args.attack == "socksend":
         balsamic.socksend(args.rhost, args.rport, args.payload, args.encode, args.steps,args.ipv6)
     elif args.attack == "socklisten":
