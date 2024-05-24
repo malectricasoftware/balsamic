@@ -22,7 +22,8 @@ options:
 ```
 socksend mode  
 ```
-usage: balsamic.py socksend [-h] -rh RHOST -rp RPORT -P PAYLOAD [-c COMMAND] [-s STEPS]
+usage: balsamic.py socksend [-h] -rh RHOST -rp RPORT -P PAYLOAD [-c COMMAND] [-s STEPS] [-e]
+                            [--ipv6]
 
 options:
   -h, --help            show this help message and exit
@@ -31,11 +32,12 @@ options:
   -P PAYLOAD, --payload PAYLOAD
   -c COMMAND, --command COMMAND
   -s STEPS, --steps STEPS
-  -e ENCODE, --encode Encode
+  -e, --encode
+  --ipv6                Use IPv6
 ```
 socklisten mode
 ```
-usage: balsamic.py socklisten [-h] -lp LPORT -P PAYLOAD [-c COMMAND]
+usage: balsamic.py socklisten [-h] -lp LPORT -P PAYLOAD [-c COMMAND] [-s STEPS] [-e] [--ipv6]
 
 options:
   -h, --help            show this help message and exit
@@ -43,7 +45,8 @@ options:
   -P PAYLOAD, --payload PAYLOAD
   -c COMMAND, --command COMMAND
   -s STEPS, --steps STEPS
-  -e ENCODE, --encode Encode
+  -e, --encode
+  --ipv6                Use IPv6
 ```
 
 ## useage (library)
@@ -51,6 +54,6 @@ options:
 from balsamic import balsamic
 balsamic.utility.command="command"
 balsamic.webreq("method", "url", "payload", "param", "cookie", custom_headers)
-balsamic.socksend("rhost", rport, "payload", enc, steps)
-balsamic.socklisten(lport, "payload", enc, steps)
+balsamic.socksend("rhost", rport, "payload", enc, steps, use_ipv6)
+balsamic.socklisten(lport, "payload", enc, steps, use_ipv6)
 ```
