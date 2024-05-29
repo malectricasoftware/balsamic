@@ -61,8 +61,6 @@ def webreq(method, url, payload, param=None, cook=None, custom_header=None):
     return f"Firing webreq attack against {url}"
 
 def socksend(rhost, rport, payload, enc, steps=0, use_ipv6=False):
-    if command:
-        updatecmd(command)
     rport = int(rport)
     steps = int(steps)
     payload = Utility.b64pickle(payload) if enc else Utility.plainpickle(payload)
@@ -77,8 +75,6 @@ def socksend(rhost, rport, payload, enc, steps=0, use_ipv6=False):
 
 
 def socklisten(lport, payload, enc, steps=0, use_ipv6=False):
-    if command:
-        updatecmd(command)
     lport = int(lport)
     steps = int(steps)
     payload = Utility.b64pickle(payload) if enc else Utility.plainpickle(payload)
